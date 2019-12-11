@@ -1,0 +1,43 @@
+#!/bin/bash
+
+set -Eeuo pipefail
+
+DOCKER_OPS_VERSION="2.0.0"
+DOCKER_OPS_FILE="ops/docker-ops-${DOCKER_OPS_VERSION}"
+
+mkdir -p ops
+if [[ ! -f $DOCKER_OPS_FILE ]];then
+  wget --quiet -O $DOCKER_OPS_FILE https://github.com/kudulab/docker-ops/releases/download/${DOCKER_OPS_VERSION}/docker-ops
+fi
+source $DOCKER_OPS_FILE
+
+image_name="nhsdev/mhs-python-dojo"
+image_registry="dockerhub"
+image_dir="./image"
+
+function docker_login {
+  if [ -z "$DOCKERHUB_PASSWORD" ]; then
+    echo "DOCKERHUB_PASSWORD must be your dockerhub password or an API token"
+    exit 5;
+  fi
+  echo "$DOCKERHUB_PASSWORD" | docker login --username nhstomzo --password-stdin
+}
+
+command="$1"
+set +u
+case "${command}" in
+  build_local)
+      image_tag=$(git rev-parse HEAD)
+      docker_ops::docker_build "${image_dir}" "${imagerc_filename}" "${image_name}" "${image_tag}" "${image_registry}"
+      ;;
+  build)
+      docker_login
+      ./tasks build_local
+      docker_ops::push "${image_dir}" "${imagerc_filename}"
+      ;;
+  *)
+      echo "Invalid command: '${command}'"
+      exit 1
+      ;;
+esac
+set +e
