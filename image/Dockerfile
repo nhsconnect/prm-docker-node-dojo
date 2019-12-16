@@ -1,4 +1,4 @@
-FROM node:11.15.0-alpine
+FROM node:12-alpine
 
 # Install common Dojo scripts
 ENV DOJO_VERSION=0.6.2
