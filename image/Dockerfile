@@ -9,6 +9,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
   /tmp/dojo_git/image_scripts/src/install.sh && \
   rm -r /tmp/dojo_git
 
+# Needed by gp2gp-adaptor dependencies
+RUN apk add --no-cache make python3
+
 COPY profile /home/dojo/.profile
 COPY bashrc /home/dojo/.bashrc
 RUN chown dojo:dojo /home/dojo/.profile /home/dojo/.bashrc
