@@ -28,7 +28,16 @@ set +u
 case "${command}" in
   build_local)
       image_tag=$(git rev-parse HEAD)
-      docker_ops::docker_build "${image_dir}" "${imagerc_filename}" "${image_name}" "${image_tag}" "${image_registry}"
+      docker_ops::docker_build "${image_dir}/alpine" "${imagerc_filename}" "${image_name}" "${image_tag}" "${image_registry}"
+      ;;
+  build_local_slim)
+      image_tag="$(git rev-parse HEAD)-slim"
+      docker_ops::docker_build "${image_dir}/slim" "${imagerc_filename}" "${image_name}" "${image_tag}" "${image_registry}"
+      ;;
+  build_slim)
+      docker_login
+      ./tasks build_local_slim
+      docker_ops::push "${image_dir}" "${imagerc_filename}"
       ;;
   build)
       docker_login

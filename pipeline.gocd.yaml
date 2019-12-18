@@ -19,11 +19,25 @@ pipelines:
                 - docker
               artifacts:
                 - build:
-                    source: image/imagerc
+                    source: image/alpine/imagerc
                     destination:
               tasks:
-               - exec:
-                  command: /bin/bash
-                  arguments:
-                    - -c
-                    - ./tasks build
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks build
+            slim_docker_image:
+              resources:
+                - docker
+              artifacts:
+                - build:
+                    source: image/slim/imagerc
+                    destination:
+              tasks:
+                - exec:
+                    command: /bin/bash
+                    arguments:
+                      - -c
+                      - ./tasks build_slim
+
