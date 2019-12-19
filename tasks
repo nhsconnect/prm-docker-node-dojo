@@ -37,12 +37,12 @@ case "${command}" in
   build_slim)
       docker_login
       ./tasks build_local_slim
-      docker_ops::push "${image_dir}" "${imagerc_filename}"
+      docker_ops::push "${image_dir}/slim" "${imagerc_filename}"
       ;;
   build)
       docker_login
       ./tasks build_local
-      docker_ops::push "${image_dir}" "${imagerc_filename}"
+      docker_ops::push "${image_dir}/alpine" "${imagerc_filename}"
       ;;
   *)
       echo "Invalid command: '${command}'"
