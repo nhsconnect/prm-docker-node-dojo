@@ -8,7 +8,8 @@ RUN apt-get update && apt-get install -yqq bash sudo git && \
   userdel node && \
   git clone --depth 1 -b ${DOJO_VERSION} https://github.com/kudulab/dojo.git /tmp/dojo_git &&\
   /tmp/dojo_git/image_scripts/src/install.sh && \
-  rm -r /tmp/dojo_git
+  rm -r /tmp/dojo_git &&\
+  echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Needed for installing the tini binaries
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /sbin/tini

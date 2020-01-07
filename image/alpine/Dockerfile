@@ -7,7 +7,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
   userdel node &&\
   git clone --depth 1 -b ${DOJO_VERSION} https://github.com/kudulab/dojo.git /tmp/dojo_git &&\
   /tmp/dojo_git/image_scripts/src/install.sh && \
-  rm -r /tmp/dojo_git
+  rm -r /tmp/dojo_git &&\
+  echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Needed by gp2gp-adaptor dependencies
 RUN apk add --no-cache make python3
