@@ -1,7 +1,7 @@
-FROM node:12-alpine
+FROM node:12.14.0-alpine
 
 # Install common Dojo scripts
-ENV DOJO_VERSION=0.6.2
+ENV DOJO_VERSION=0.10.0
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
   apk add --no-cache tini bash shadow sudo git && \
   userdel node &&\
@@ -11,7 +11,10 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
   echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 # Needed by gp2gp-adaptor dependencies
-RUN apk add --no-cache make python3
+RUN apk add --no-cache make python3 
+
+# Needed for debugging
+RUN apk add --no-cache curl
 
 COPY profile /home/dojo/.profile
 COPY bashrc /home/dojo/.bashrc

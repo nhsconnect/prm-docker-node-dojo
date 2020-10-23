@@ -14,11 +14,3 @@ DOJO_DOCKER_IMAGE="nhsdev/node-dojo:<commit>"
 4. Create and enter the container by running `dojo` at the root of project.
 
 By default, current directory in docker container is `/dojo/work`.
-
-
-## Flavours
-
-| Image                            | Base Image       | Notes                                  |                                 
-|:---------------------------------|------------------|:---------------------------------------|
-| `nhsdev/node-dojo:<commit>`      | `node:12-alpine` |                                        |
-| `nhsdev/node-dojo:<commit>-slim` | `node:12-slim`   | Includes dependencies to run pa11y-ci. |
