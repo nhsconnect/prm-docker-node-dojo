@@ -19,6 +19,9 @@ RUN wget -O ./jq-linux64 https://github.com/stedolan/jq/releases/download/jq-1.5
   chmod +x ./jq-linux64 &&\
   mv ./jq-linux64 /usr/bin/jq
 
+# To run postgres migrations in dojo
+RUN apk add --no-cache postgresql-client
+
 # Needed by gp2gp-adaptor dependencies
 RUN apk add --no-cache make python3
 
