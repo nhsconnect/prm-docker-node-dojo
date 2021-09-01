@@ -1,12 +1,5 @@
 FROM node:14.17.1-alpine
 
-ENV DOJO_VERSION=0.10.2
-
-#Create user
-RUN deluser --remove-home node \
-  && addgroup -S node -g 1001 \
-  && adduser -S -G node -u 1001 node
-
 # Install common Dojo scripts
 ENV DOJO_VERSION=0.10.2
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
