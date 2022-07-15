@@ -1,4 +1,4 @@
-FROM node:14.17.1-alpine
+FROM node:16.16.0-alpine
 
 # Install common Dojo scripts
 ENV DOJO_VERSION=0.10.2
@@ -11,7 +11,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
   echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 ENV AWS_CLI_VERSION=1.16.238 BOTO3_VERSION=1.9.228
-RUN apk add --no-cache make python py-pip curl groff &&\
+RUN apk add --no-cache make python3 py-pip curl groff &&\
   pip install awscli==${AWS_CLI_VERSION} boto3==${BOTO3_VERSION}
 
 # Install sequelize postgress native dependencies
@@ -24,12 +24,6 @@ RUN wget -O ./jq-linux64 https://github.com/stedolan/jq/releases/download/jq-1.5
 
 # To run postgres migrations in dojo
 RUN apk add --no-cache postgresql-client
-
-# Needed by gp2gp-adaptor dependencies
-RUN apk add --no-cache make python3
-
-# Needed for debugging
-RUN apk add --no-cache curl
 
 COPY profile /home/dojo/.profile
 COPY bashrc /home/dojo/.bashrc
