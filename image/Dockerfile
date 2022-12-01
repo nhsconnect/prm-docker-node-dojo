@@ -11,7 +11,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
   echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 ENV AWS_CLI_VERSION=1.16.238 BOTO3_VERSION=1.9.228
-RUN apk add --no-cache make python3 py-pip curl groff &&\
+RUN apk add --no-cache make python py-pip curl groff &&\
   pip install awscli==${AWS_CLI_VERSION} boto3==${BOTO3_VERSION}
 
 # Install sequelize postgress native dependencies
