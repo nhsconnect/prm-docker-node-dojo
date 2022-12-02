@@ -1,4 +1,15 @@
-FROM node:16.16.0-alpine
+FROM node:19.2-alpine
+
+ENV TINI_VERSION=v0.19.0
+ARG TARGETPLATFORM
+RUN case ${TARGETPLATFORM} in \
+         "linux/amd64")  TINI_ARCH=amd64  ;; \
+         "linux/arm64")  TINI_ARCH=arm64  ;; \
+    esac \
+ && wget -q https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini-static-${TINI_ARCH} -O /tini
+
+
+ENTRYPOINT ["/usr/local/bin/npx", "aws-lambda-ric"]
 
 # Install common Dojo scripts
 ENV DOJO_VERSION=0.10.2
@@ -11,8 +22,9 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
   echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
 ENV AWS_CLI_VERSION=1.16.238 BOTO3_VERSION=1.9.228
-RUN apk add --no-cache make python3 py-pip curl groff &&\
-  pip install awscli==${AWS_CLI_VERSION} boto3==${BOTO3_VERSION}
+RUN apk add --no-cache make python3 py3-pip curl groff &&\
+    python3 -m ensurepip --upgrade &&\
+    python3 -m pip install awscli==${AWS_CLI_VERSION} boto3==${BOTO3_VERSION}
 
 # Install sequelize postgress native dependencies
 RUN apk add --no-cache postgresql-dev g++ make
