@@ -1,4 +1,4 @@
-FROM node:19.2-alpine
+FROM node:18.2-alpine
 
 # Install common Dojo scripts
 ENV DOJO_VERSION=0.10.2
