@@ -1,7 +1,7 @@
 FROM node:20-alpine
 
 # Install common Dojo scripts
-ENV DOJO_VERSION=0.10.2
+ENV DOJO_VERSION=0.11.0
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
   apk add --no-cache tini bash shadow sudo git && \
   userdel node &&\
