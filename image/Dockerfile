@@ -1,7 +1,7 @@
 FROM node:20-alpine
 
 # Install common Dojo scripts
-ENV DOJO_VERSION=0.10.2
+ENV DOJO_VERSION=0.11.0
 RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
   apk add --no-cache tini bash shadow sudo git && \
   userdel node &&\
@@ -10,7 +10,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
   rm -r /tmp/dojo_git &&\
   echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-ENV AWS_CLI_VERSION=1.16.238 BOTO3_VERSION=1.9.228
+ENV AWS_CLI_VERSION=2.15.12 BOTO3_VERSION=1.34.23
 RUN apk add --no-cache make python3 py3-pip curl groff &&\
     python3 -m ensurepip --upgrade &&\
     python3 -m pip install awscli==${AWS_CLI_VERSION} boto3==${BOTO3_VERSION}
@@ -19,9 +19,9 @@ RUN apk add --no-cache make python3 py3-pip curl groff &&\
 RUN apk add --no-cache postgresql-dev g++ make
 
 # Install jq to parse json in bash
-RUN wget -O ./jq-linux64 https://github.com/stedolan/jq/releases/download/jq-1.5/jq-linux64 &&\
-  chmod +x ./jq-linux64 &&\
-  mv ./jq-linux64 /usr/bin/jq
+RUN wget -O ./jq-linux-arm64 https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-arm64 &&\
+  chmod +x ./jq-linux-arm64 &&\
+  mv ./jq-linux-arm64 /usr/bin/jq
 
 # To run postgres migrations in dojo
 RUN apk add --no-cache postgresql-client
