@@ -1,4 +1,4 @@
-FROM node:20-alpine
+FROM node:22.5-alpine
 
 # Install common Dojo scripts
 ENV DOJO_VERSION=0.11.0
@@ -10,10 +10,7 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repos
   rm -r /tmp/dojo_git &&\
   echo 'dojo ALL=(ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-ENV AWS_CLI_VERSION=2.15.12 BOTO3_VERSION=1.34.23
-RUN apk add --no-cache make python3 py3-pip curl groff &&\
-    python3 -m ensurepip --upgrade &&\
-    python3 -m pip install awscli==${AWS_CLI_VERSION} boto3==${BOTO3_VERSION}
+RUN apk add --no-cache make python3 py3-pip curl groff aws-cli
 
 # Install sequelize postgress native dependencies
 RUN apk add --no-cache postgresql-dev g++ make
