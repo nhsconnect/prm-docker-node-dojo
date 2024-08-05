@@ -2,7 +2,7 @@
 
 set -Eeuo pipefail
 
-DOCKER_OPS_VERSION="2.0.0"
+DOCKER_OPS_VERSION="2.0.1"
 DOCKER_OPS_FILE="ops/docker-ops-${DOCKER_OPS_VERSION}"
 AWS_REGION="eu-west-2"
 
